@@ -1,0 +1,40 @@
+name: spc pipeline
+trigger:
+  main
+pool: default
+schedules:
+  - cron: '* 1 * * *'
+    displayName: 'day build'
+    branches:
+      include:
+        -main
+      exclude:
+        -jfrog
+    always: true
+  - cron: '*/30 * * * 1-5'
+    displayName: 'night build'
+    branches:
+      include:
+       -main
+      exclude:
+        -jfrog
+    always: false
+stages:
+  - stage: build
+    displayName: spc pipeline
+    jobs:
+      -job: 'buildjob'
+      display name: 'Build the job'
+      continueonerror: false
+      workspace: 
+        clean: outputs
+      steps:
+        -task: maven@3
+        inputs:
+          mavenpom.file: 'pom.xml'
+          goals: 'package'
+
+
+ 
+
+
