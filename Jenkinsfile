@@ -3,7 +3,7 @@ node ('build_java_11') {
         // get the code from git repo on scripted branch
         git branch: 'scripted', url: 'https://github.com/jyothisalagondla/spring-petclinic.git'
     }
-    
+
     stage('build the code')  {
         sh 'mvn package'
     }
@@ -13,4 +13,5 @@ node ('build_java_11') {
         archiveArtifacts artifacts: '**/*.war', followSymlinks: false
     }
 }
+
     
