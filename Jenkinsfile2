@@ -1,9 +1,15 @@
 pipeline {
-    agent ('')
+    agent {label 'build_java_11'}
     stages {
-        stage {
+        stage ('sourcecode') {
             steps {
+                git branch: 'declarative', url: 'https://github.com/jyothisalagondla/spring-petclinic.git'
 
+            }
+        }
+        stage('build the code'){
+            steps {
+                sh 'mvn package'
             }
         }
     }
