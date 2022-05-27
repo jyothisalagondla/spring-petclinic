@@ -4,13 +4,18 @@ pipeline {
         stage ('sourcecode') {
             steps {
                 git branch: 'declarative', url: 'https://github.com/jyothisalagondla/spring-petclinic.git'
-
             }
         }
         stage('build the code'){
             steps {
                 sh 'mvn package'
             }
+        }
+        stage('junit test result') {
+            steps {
+                junit '**/surefire-reports/*.xml'
+                archiveArtifacts artifacts: '**/*.war', followSymlinks: false
+            }   
         }
     }
 }
