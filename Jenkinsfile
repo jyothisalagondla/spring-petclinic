@@ -10,7 +10,7 @@ node ('build_java_11') {
 
     stage('junit test result') {
         junit '**/surefire-reports/*.xml'
-        archiveArtifacts artifacts: '**/*.war', followSymlinks: false
+        archiveArtifacts artifacts: '**/*.jar', followSymlinks: false
     }
 }
 
