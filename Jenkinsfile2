@@ -6,9 +6,11 @@ pipeline {
                 git branch: 'declarative', url: 'https://github.com/jyothisalagondla/spring-petclinic.git'
             }
         }
-        stage('build the code'){
+        stage('build the code and sonar analysis'){
             steps {
+                withSonarQubeEnv('sonarqube'){
                 sh 'mvn package'
+                }
             }
         }
         stage('junit test result') {
