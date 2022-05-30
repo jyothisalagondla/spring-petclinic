@@ -6,11 +6,21 @@ pipeline {
                 git branch: 'declarative', url: 'https://github.com/jyothisalagondla/spring-petclinic.git'
             }
         }
-        stage('build the code and sonar analysis'){
+        stage('build the code'){
+            steps 
+                sh 'mvn package'
+                
+            }
+        }
+        stage('Artifactory-Configuration') {
             steps {
-                withSonarQubeEnv('sonarqube'){
-                sh 'mvn package sonar:sonar'
-                }
+                rtMavenDeployer (
+                    id: 'spc-deployer',
+                    serverId: 'jfrog',
+                    releaseRepo: 'spring-libs-release-local',
+                    snapshotRepo: 'spring-libs-snapshot-local',
+
+                )
             }
         }
         stage('junit test result') {
