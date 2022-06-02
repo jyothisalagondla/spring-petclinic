@@ -17,8 +17,8 @@ pipeline {
                 rtMavenDeployer (
                     id: 'spc-deployer',
                     serverId: 'jfrog',
-                    releaseRepo: 'spring-libs-release-local',
-                    snapshotRepo: 'spring-libs-snapshot-local',
+                    releaseRepo: 'spring-libs-release',
+                    snapshotRepo: 'spring-libs-snapshot',
 
                 )
             }
@@ -42,4 +42,3 @@ pipeline {
             }   
         }
     }
-}
